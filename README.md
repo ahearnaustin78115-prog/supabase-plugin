@@ -10,6 +10,22 @@ Official Supabase plugin for Claude Code, Cursor, Codex, Antigravity, and other 
 
 Install the plugin from your agent's plugin marketplace, or follow the steps for your agent in the [Supabase docs](https://supabase.com/docs/guides/ai-tools/plugins). The first time your agent uses the MCP server, it opens your browser so you can sign in to Supabase and authorize access.
 
+For CI or non-interactive use, you can instead configure the MCP server manually with a personal access token and a project scope:
+
+```json
+{
+  "mcpServers": {
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=${SUPABASE_PROJECT_REF}",
+      "headers": {
+        "Authorization": "Bearer ${SUPABASE_ACCESS_TOKEN}"
+      }
+    }
+  }
+}
+```
+
 If you already added the Supabase MCP server by hand, remove it after installing the plugin so your agent doesn't load the same tools twice.
 
 > Want to contribute? Read [CONTRIBUTING.md](CONTRIBUTING.md) first.
