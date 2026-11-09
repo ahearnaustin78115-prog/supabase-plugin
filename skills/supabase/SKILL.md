@@ -37,6 +37,9 @@ When working on any Supabase task that touches auth, RLS, views, storage, or use
   - **Never use `user_metadata` claims in JWT-based authorization decisions.** In Supabase, `raw_user_meta_data` is user-editable and can appear in `auth.jwt()`, so it is unsafe for RLS policies or any other authorization logic. Store authorization data in `raw_app_meta_data` / `app_metadata` instead.
   - **Deleting a user does not invalidate existing access tokens.** Sign out or revoke sessions first, keep JWT expiry short for sensitive apps, and for strict guarantees validate `session_id` against `auth.sessions` on sensitive operations.
   - **If you use `app_metadata` or `auth.jwt()` for authorization, remember JWT claims are not always fresh until the user's token is refreshed.**
+  - **For custom-claims RBAC, derive claims from trusted database state in a Custom Access Token Auth Hook.** For example, look up a user's role in a protected role table and add it to the JWT before token issuance; never accept role assignments from client input or `user_metadata`. Restrict the hook's execution and role-table access to `supabase_auth_admin`, and enable it under Authentication > Hooks.
+  - **Enforce custom roles and permissions in RLS, not only in application code.** Read claims with `auth.jwt()` in an authorization helper and use that helper in policies scoped to the intended Postgres role. If the helper needs `SECURITY DEFINER` to read protected permission tables, keep it in a non-exposed schema, set a fixed `search_path`, revoke default `PUBLIC` execution, and grant execution only where required. Ensure it rejects unauthenticated calls and returns only the authorization result.
+  - **Treat client-decoded claims as display hints, not proof of authorization.** A custom access token hook changes the access-token JWT, not the Auth response; verify tokens with Supabase Auth or trusted server-side JWT middleware before using claims in server logic. Role changes are not reflected in already-issued tokens until refresh.
 
 - **API key and client exposure**
   - **Never expose the `service_role` or secret key in public clients.** Prefer publishable keys for frontend code. Legacy `anon` keys are only for compatibility. In Next.js, any `NEXT_PUBLIC_` env var is sent to the browser.
@@ -74,6 +77,8 @@ When working on any Supabase task that touches auth, RLS, views, storage, or use
   - **Always pin package versions and commit lockfiles** when installing Supabase packages (`supabase-js`, `@supabase/ssr`, `supabase-py`, etc.). See the [npm security guide](https://supabase.com/docs/guides/security/npm-security.md) for the full checklist.
 
 For any security concern not covered above, fetch the Supabase product security index: `https://supabase.com/docs/guides/security/product-security.md`
+
+For custom access-token hooks and role-based access control, see [Custom Claims & Role-based Access Control (RBAC)](https://supabase.com/docs/guides/api/custom-claims-and-role-based-access-control-rbac).
 
 ## Supabase CLI
 
