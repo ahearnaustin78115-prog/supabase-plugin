@@ -57,6 +57,7 @@ Each rule file contains:
 
 ## References
 
+- **pg_cron run logging** → [references/advanced-pg-cron-run-logging.md](references/advanced-pg-cron-run-logging.md)
 - https://www.postgresql.org/docs/current/
 - https://supabase.com/docs
 - https://wiki.postgresql.org/wiki/Performance_Optimization
