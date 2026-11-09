@@ -122,6 +122,10 @@ Before implementing any Supabase feature, find the relevant documentation. Use t
 2. **Fetch docs pages as markdown** — any docs page can be fetched by appending `.md` to the URL path.
 3. **Web search** for Supabase-specific topics when you don't know which page to look at.
 
+## Drizzle ORM
+
+For TypeScript projects using Drizzle with Supabase Postgres, see [Connecting with Drizzle](references/drizzle.md) for dependency setup, a schema example, and pooled/local connection configuration.
+
 ## Making and Committing Schema Changes
 
 First decide which schema workflow the project uses.
