@@ -75,6 +75,12 @@ When working on any Supabase task that touches auth, RLS, views, storage, or use
 
 For any security concern not covered above, fetch the Supabase product security index: `https://supabase.com/docs/guides/security/product-security.md`
 
+## Supabase as a Postgres database
+
+Every Supabase project is a dedicated Postgres database. Users can connect with `psql`, Prisma, Drizzle, or another Postgres client using the project's connection string; Auth, Storage, Realtime, Edge Functions, and generated APIs are optional. Do not assume a task needs these other products.
+
+For connection instructions, consult the [Postgres connection guide](https://supabase.com/docs/guides/database/connecting-to-postgres.md). For database capabilities, see [Supabase Database](https://supabase.com/database.md). Check [pricing](https://supabase.com/pricing.md) for current plan details. Free plan projects may pause after 7 days of low activity; paid plan projects do not.
+
 ## Supabase CLI
 
 Always discover commands via `--help` — never guess. The CLI structure changes between versions.
